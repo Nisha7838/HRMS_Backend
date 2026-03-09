@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from models.attendance_model import Attendance
 from models.employee_model import Employee
+from datetime import date
 
 class AttendanceRepository:
     @staticmethod
@@ -35,7 +36,14 @@ class AttendanceRepository:
 
     @staticmethod
     def get_by_employee_id(db: Session, emp_id: int, skip: int = 0, limit: int = 10):
-        query = db.query(Attendance).filter(Attendance.employee_id == emp_id)
+        today = date.today()
+
+        query = db.query(Attendance).filter(
+            Attendance.employee_id == emp_id,
+            Attendance.date.month == today.month,
+            Attendance.date.year == today.year
+        )
+
         total = query.count()
         data = query.offset(skip).limit(limit).all()
         return data, total
