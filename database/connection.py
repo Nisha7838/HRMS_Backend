@@ -3,15 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-
-# DB_USER = os.getenv("DB_USER")
-# DB_PASSWORD = os.getenv("DB_PASSWORD")
-# DB_HOST = os.getenv("DB_HOST")
-# DB_NAME = os.getenv("DB_NAME")
-
-
-DATABASE_URL = os.getenv("MYSQL_URL")
+DATABASE_URL = "mysql+pymysql://sql12819413:zxjl8ri9TJ@sql12.freesqldatabase.com:3306/hrm_system"
 
 engine = create_engine(DATABASE_URL)
 
