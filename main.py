@@ -4,7 +4,7 @@ from routes import attendance_routes, employee_routes
 
 app = FastAPI(title="HRMS Backend")
 
-origins = ["*"]
+origins = ["https://hmrs-fronted.vercel.app/"]
 
 app.add_middleware(
     CORSMiddleware,
