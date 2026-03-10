@@ -45,7 +45,7 @@ class AttendanceRepository:
         data = query.offset(skip).limit(limit).all()
         result = [
             {
-                "attendance_id": att.Attendance.attendance_id,
+                "id": att.Attendance.id,
                 "date": att.Attendance.date,
                 "status": att.Attendance.status,
                 "employee_full_name": att.full_name
