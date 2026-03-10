@@ -9,3 +9,4 @@ class Employee(Base):
     full_name = Column(String(100))
     email = Column(String(100), unique=True)
     department = Column(String(100))
+    is_active = Column(Boolean, default=True)

@@ -5,14 +5,14 @@ from fastapi import HTTPException
 class EmployeeRepository:
     @staticmethod
     def get_all(db: Session, skip: int = 0, limit: int = 10):
-        query = db.query(Employee)
+        query = db.query(Employee).filter(Employee.is_active == True)
         total = query.count()
         data = query.offset(skip).limit(limit).all()
         return data, total
 
     @staticmethod
     def get_by_email(db: Session, email: str):
-        return db.query(Employee).filter(Employee.email == email).first()
+        return db.query(Employee).filter(Employee.email == email, Employee.is_active == True).first()
 
     @staticmethod
     def create(db: Session, data):
@@ -28,9 +28,9 @@ class EmployeeRepository:
 
     @staticmethod
     def delete(db: Session, emp_id: int):
-        employee = db.query(Employee).filter(Employee.employee_id == emp_id).first()
+        employee = db.query(Employee).filter(Employee.employee_id == emp_id, Employee.is_active == True).first()
         if employee:
-            db.delete(employee)
+            employee.is_active = False
             db.commit()
             return True
         return False
