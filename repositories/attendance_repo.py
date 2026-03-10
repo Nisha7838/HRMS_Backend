@@ -36,23 +36,21 @@ class AttendanceRepository:
     @staticmethod
     def get_by_employee_id(db: Session, emp_id: int, skip: int = 0, limit: int = 10):
         query = (
-        db.query(Attendance, Employee.full_name)
-        .join(Employee, Attendance.employee_id == Employee.employee_id)
-        .filter(Attendance.employee_id == emp_id, Employee.is_active == True)  
-    )
+            db.query(Attendance, Employee.full_name)
+            .join(Employee, Attendance.employee_id == Employee.employee_id)
+            .filter(Attendance.employee_id == emp_id, Employee.is_active == True)  
+        )
 
-    total = query.count()
-    data = query.offset(skip).limit(limit).all()
-    
-    
-    result = [
-        {
-            "attendance_id": att.Attendance.attendance_id,
-            "date": att.Attendance.date,
-            "status": att.Attendance.status,
-            "employee_full_name": att.full_name
-        }
-        for att in data
-    ]
-    
-    return result, total
+        total = query.count()
+        data = query.offset(skip).limit(limit).all()
+        result = [
+            {
+                "attendance_id": att.Attendance.attendance_id,
+                "date": att.Attendance.date,
+                "status": att.Attendance.status,
+                "employee_full_name": att.full_name
+            }
+            for att in data
+        ]
+        
+        return result, total
